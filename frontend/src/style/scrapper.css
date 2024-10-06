@@ -1,0 +1,130 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    Width: 100%;
+    Height: 100%;
+    overflow: hidden;
+}
+
+.userPanel__Container {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    font-family: "Arial", sans-serif;
+    animation: slideIn 0.7s ease-in-out;
+}
+
+.scrapper__main {
+    width: 30%;
+    height: 70%;
+    background-color: aliceblue;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.scrapper__main h2 {
+    text-align: center;
+    margin-top: 5px;
+    font-size: 3em;
+    color: black;
+}
+
+.scrapper__main form {
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    /* border: 2px solid black; */
+    margin-top: 10px;
+    padding-top: 20px;
+}
+
+.scrapper__main form input:nth-child(1) {
+    height: 6vh;
+    width: 20vw;
+    padding: 20px 5px;
+    margin-top: -20px;
+    font-size: 1em;
+}
+
+.scrapper__main form input:nth-child(3) {
+    height: 6vh;
+    width: 20vw;
+    padding: 20px 5px;
+    margin-top: 2px;
+    font-size: 1em;
+}
+
+.scrapper__main form input:nth-child(5) {
+    height: 6vh;
+    width: 20vw;
+    padding: 20px 5px;
+    margin-top: 2px;
+    font-size: 1em;
+}
+
+.scrapper__main form input:nth-child(7) {
+    height: 6vh;
+    width: 20vw;
+    padding: 20px 5px;
+    margin-top: 2px;
+    font-size: 1em;
+}
+
+.scrapper__main form button {
+    height: 8vh;
+    width: 20vw;
+    margin-top: 28px;
+    font-size: 1.5rem;
+
+}
+
+/* Animations */
+/* @keyframes slideIn {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes scaleUp {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInTable {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+} */
+
+@media (max-width: 768px) {
+    div {
+        width: 80%;
+    }
+}

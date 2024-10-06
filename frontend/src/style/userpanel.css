@@ -1,0 +1,350 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box
+}
+
+html,
+body {
+    Width: 100%;
+    Height: 100%;
+    overflow: hidden;
+}
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 78px;
+    background: white;
+    padding: 6px 14px;
+    z-index: 99;
+    transition: all 0.5s ease;
+    border-right: 1px solid gray;
+}
+
+.sidebar.open {
+    width: 250px;
+}
+
+.sidebar .logo-details {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.sidebar .logo-details .icon {
+    opacity: 0;
+    transition: all 0.5s ease;
+}
+
+.sidebar .logo-details .logo_name {
+    color: royalblue;
+    font-size: 20px;
+    font-weight: 600;
+    opacity: 0;
+    transition: all 0.5s ease;
+}
+
+.sidebar.open .logo-details .icon,
+.sidebar.open .logo-details .logo_name {
+    opacity: 1;
+}
+
+.sidebar .logo-details #btn {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    font-size: 22px;
+    transition: all 0.4s ease;
+    font-size: 23px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+
+.sidebar.open .logo-details #btn {
+    text-align: right;
+}
+
+.sidebar i {
+    color: royalblue;
+    height: 60px;
+    min-width: 50px;
+    font-size: 28px;
+    line-height: 60px;
+    text-align: center;
+}
+
+.sidebar .nav-list {
+    margin-top: 20px;
+    height: 100%;
+}
+
+.sidebar .nav-list .links_name {
+    display: none;
+}
+
+.sidebar .nav-list li input {
+    display: none;
+}
+
+.sidebar.open .nav-list .links_name {
+    color: royalblue;
+    display: block;
+}
+
+.sidebar .nav-list .dashboard-li i {
+    margin-left: -15px;
+    color: royalblue;
+}
+
+.sidebar .nav-list .dashboard-li:hover i {
+    color: white;
+}
+
+.sidebar .nav-list .dashboard-li:hover .links_name {
+    color: #fff;
+}
+
+.sidebar .nav-list .dashboard-li:active {
+    scale: 0.95;
+}
+
+.sidebar .nav-list .dashboard-li:hover {
+    background-color: royalblue;
+    border-bottom: 2px solid white;
+}
+
+.sidebar li {
+    position: relative;
+    margin: 8px 0;
+    list-style: none;
+}
+
+.dashboard-li {
+    border-bottom: 1px solid royalblue;
+    padding: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.dashboard-li .links_name {
+    font-size: 1.3rem;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 900;
+}
+
+.nav-list .dashboard-li i {
+    color: #fff;
+}
+
+.sidebar .dashboard-li .tooltip {
+    position: absolute;
+    top: -20px;
+    left: calc(100% + 15px);
+    z-index: 3;
+    background: #fff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 15px;
+    font-weight: 400;
+    opacity: 0;
+    white-space: nowrap;
+    pointer-events: none;
+    transition: 0s;
+}
+
+/* .sidebar .dashboard-li .links_name {
+    display: none;
+  } */
+.sidebar .dashboard-li:hover .tooltip {
+    color: #000;
+    opacity: 1;
+    pointer-events: auto;
+    transition: all 0.4s ease;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.sidebar.open .dashboard-li .tooltip {
+    display: none;
+}
+
+.sidebar.open .nav-list i {
+    margin-left: 10px;
+}
+
+.sidebar .nav-list .name {
+    display: none;
+    /* margin-left: 1px; */
+}
+
+.sidebar.open input {
+    padding: 0 20px 0 50px;
+    width: 100%;
+}
+
+.sidebar .bx-search {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    font-size: 22px;
+    background: white;
+    color: #cbb058;
+}
+
+.sidebar.open .bx-search:hover {
+    background: #1d1b31;
+    color: #cbb058;
+}
+
+.sidebar .bx-search:hover {
+    background: #1a1919;
+    color: #cbb058;
+}
+
+.sidebar li a {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    border-radius: 12px;
+    align-items: center;
+    text-decoration: none;
+    transition: all 0.4s ease;
+    background: #11101d;
+}
+
+.sidebar li a:hover {
+    background: #fff;
+}
+
+.sidebar li a .links_name {
+    color: #fff;
+    font-size: 15px;
+    font-weight: 400;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.4s;
+}
+
+.sidebar.open li a .links_name {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.sidebar li a:hover .links_name,
+.sidebar li a:hover i {
+    transition: all 0.5s ease;
+    color: #11101d;
+}
+
+.sidebar li i {
+    height: 50px;
+    line-height: 50px;
+    font-size: 18px;
+    border-radius: 12px;
+}
+
+.sidebar li.profile {
+    position: fixed;
+    height: 60px;
+    width: 78px;
+    left: 0;
+    bottom: -8px;
+    padding: 10px 14px;
+    background: royalblue;
+    transition: all 0.5s ease;
+    overflow: hidden;
+    cursor: pointer;
+}
+.sidebar li.profile:hover{
+    background: rgb(19, 48, 134);
+}
+
+.sidebar.open li.profile {
+    width: 250px;
+}
+
+.sidebar li .profile-details {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+.sidebar li .profile-details i {
+    color: #e4e9f7;
+    font-size: 1.5rem;
+}
+
+
+.sidebar.open .nav-list .name{
+    display: block;
+}
+
+.sidebar li.profile .name,
+.sidebar li.profile .job {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #fff;
+    white-space: nowrap;
+}
+
+.sidebar li.profile .job {
+    font-size: 12px;
+}
+
+
+
+.home-section {
+    position: relative;
+    background: #e4e9f7;
+    min-height: 100vh;
+    top: 0;
+    left: 78px;
+    width: calc(100% - 78px);
+    transition: all 0.5s ease;
+    z-index: 2;
+}
+
+.sidebar.open~.home-section {
+    left: 250px;
+    width: calc(100% - 250px);
+}
+
+.home-section .text {
+    display: inline-block;
+    color: #11101d;
+    font-size: 25px;
+    font-weight: 500;
+    margin: 18px;
+}
+
+.logo-details span .ri-menu-3-line{
+    margin-left: 10px;
+}
+
+.sidebar .logo-details span .ri-close-fill {
+    margin-left: 200px;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    flex-grow: 1;
+    padding: 20px;
+}
+
+@media (max-width: 420px) {
+    .sidebar li .tooltip {
+        display: none;
+    }
+}
