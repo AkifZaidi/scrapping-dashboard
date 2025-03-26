@@ -1,0 +1,3 @@
+From node:alpine
+
+WORKDIR /app

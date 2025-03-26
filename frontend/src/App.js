@@ -8,6 +8,7 @@ import CreateUser from './components/createUser';
 import User from './components/user';
 import Scrapper from './components/scrapper';
 import ScrapperList from './components/scrapperList';
+import ProtectedWrapper from "./components/ProtectedWrapper" 
 
 function App() {
   return (
@@ -16,7 +17,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Login />} />
           <Route path='/register' element={<Register />} />
-          <Route path='/adminpanel' element={<Adminpanel />} >
+          <Route path='/adminpanel/*' element={<ProtectedWrapper><Adminpanel /></ProtectedWrapper>} >
             <Route path='createUser' element={<CreateUser />} />
             <Route path='user' element={<User />} />
           </Route>

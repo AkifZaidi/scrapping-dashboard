@@ -13,15 +13,18 @@ function Login() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        axios.post("http://localhost:3000/login", { email, password })
+        axios.post("http://localhost:5000/login", { email, password })
             .then(result => {
                 if (result.data.role === "admin") {
                     Navigate("/adminpanel/createUser");
                 } else if (result.data.role === "user") {
                     Navigate("/userpanel/scrapper");
-                } else if (result.data.role === "unauthorized") {
+                } else {
                     setAccessUser("Unauthorized access");
+                    Navigate("/")
                 }
+                localStorage.setItem('role', result.data.role);
+
             })
             .catch(err => {
                 console.log(err);

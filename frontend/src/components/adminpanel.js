@@ -29,6 +29,7 @@ function Userpanel() {
 
   const logout = () => {
     Navigation('/');
+    // localStorage.removeItem("role")
   };
 
   // Search bar filtering

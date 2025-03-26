@@ -11,13 +11,13 @@ function Userpanel() {
       title: "Scrapper",
       path: "/userpanel/scrapper",
       category: "/userpanel/scrapper",
-      icon: <i class="ri-flask-fill"></i>,
+      icon: <i className="ri-flask-fill"></i>,
     },
     {
       title: "scrapper List",
       path: "/userpanel/scrapperList",
       category: "/userpanel/scrapperList",
-      icon: <i class="ri-lock-password-fill"></i>,
+      icon: <i className="ri-lock-password-fill"></i>,
     },
   ];
   const [dashboardItem, setDashboardItem] = useState(dashBoard);

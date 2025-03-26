@@ -41,7 +41,7 @@ const Scrapper = () => {
     
     try {
       // Axios request to send input to the backend
-      await axios.post("http://localhost:3000/scrape", {
+      await axios.post("http://localhost:5000/scrape", {
         number,
         carName,
         location,

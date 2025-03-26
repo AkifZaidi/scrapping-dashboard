@@ -11,8 +11,8 @@ function ScrapperList() {
     const headingRef = useRef(null); // Reference for the heading
 
     const fetchCars = async () => {
-        try {
-            const response = await axios.get("http://localhost:3000/cars");
+        try { 
+            const response = await axios.get("http://localhost:5000/cars");
             setUniqueCars(response.data.uniqueCars); // Set unique cars
             setDuplicateCars(response.data.duplicateCars); // Set duplicate cars
         } catch (error) {
