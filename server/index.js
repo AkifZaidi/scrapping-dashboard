@@ -4,7 +4,7 @@ const cors = require("cors");
 const userModel = require("./models/user");
 const carModel = require("./models/scrapper");
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const cookieParser = require('cookie-parser');
 const cron = require('node-cron');
 
@@ -25,42 +25,33 @@ app.get("/", (req, res) => {
     res.send("Welcome to the Office Dashboard API!");
 });
 
-app.post('/register',IsLoggedIn, async function (req, res) {
+app.post('/register', IsLoggedIn, async function (req, res) {
     const { name, email, password } = req.body;
-    
+
     let AuthenticateUser = await userModel.findOne({ email });
-    
+
     if (AuthenticateUser) {
         return res.send("User already exists");
     }
-    
-    bcrypt.genSalt(10, function (err, salt) {
-        if (err) {
-            return res.status(500).json({ error: "Error generating salt" });
-        }
-        
-        bcrypt.hash(password, salt, async function (err, hash) {
-            if (err) {
-                return res.status(500).json({ error: "Error hashing password" });
-            }
 
-            try {
-                let user = await userModel.create({
-                    name,
-                    email,
-                    password: hash
-                });
-                
-                console.log(user);
-                
-                var token = jwt.sign({ email, userId: user._id }, 'dashBoard@');
-                res.cookie("token", token);
-                return res.json(user);
-            } catch (err) {
-                return res.status(500).json({ error: "Error creating user" });
-            }
+    try {
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+
+        let user = await userModel.create({
+            name,
+            email,
+            password: hashedPassword
         });
-    });
+
+        console.log(user);
+
+        var token = jwt.sign({ email, userId: user._id }, 'dashBoard@');
+        res.cookie("token", token);
+        return res.json(user);
+    } catch (err) {
+        return res.status(500).json({ error: "Error creating user" });
+    }
 });
 
 app.post("/user", async (req, res) => {
@@ -83,15 +74,14 @@ app.post("/login", async (req, res) => {
         return res.status(403).send({ role: 'unauthorized', message: "Unauthorized access" });
     }
 
-    bcrypt.compare(password, loginUser.password, (err, result) => {
-        if (result) {
-            const token = jwt.sign({ email, userId: loginUser._id }, 'dashBoard@', { expiresIn: '1h' });
-            res.cookie("token", token);
-            return res.send({ role: 'user' });
-        } else {
-            return res.status(403).send({ role: 'unauthorized', message: "Unauthorized access" });
-        }
-    });
+    const isMatch = await bcrypt.compare(password, loginUser.password);
+    if (isMatch) {
+        const token = jwt.sign({ email, userId: loginUser._id }, 'dashBoard@', { expiresIn: '1h' });
+        res.cookie("token", token);
+        return res.send({ role: 'user' });
+    } else {
+        return res.status(403).send({ role: 'unauthorized', message: "Unauthorized access" });
+    }
 });
 
 app.post('/scrape', async (req, res) => {
@@ -160,5 +150,5 @@ async function IsLoggedIn(req, res, next) {
 }
 
 app.listen(5000, () => {
-    console.log("Server is running on port 3000");
+    console.log("Server is running on port 5000");
 });
