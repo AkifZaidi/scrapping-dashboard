@@ -2,6 +2,8 @@ import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { gsap } from "gsap";
 import "../style/scrapperList.css";
+import BACKEND_URL from '../api/config'
+
 
 function ScrapperList() {
     const [uniqueCars, setUniqueCars] = useState([]); // State for unique cars
@@ -12,7 +14,7 @@ function ScrapperList() {
 
     const fetchCars = async () => {
         try { 
-            const response = await axios.get("http://localhost:5000/cars");
+            const response = await axios.get(`${BACKEND_URL}/cars`); // Fetch car data
             setUniqueCars(response.data.uniqueCars); // Set unique cars
             setDuplicateCars(response.data.duplicateCars); // Set duplicate cars
         } catch (error) {

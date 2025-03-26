@@ -3,6 +3,8 @@ import axios from "axios";
 import "../style/scrapper.css"
 import { gsap } from "gsap"; // GSAP import kiya
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import BACKEND_URL from '../api/config'
+
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -41,7 +43,7 @@ const Scrapper = () => {
     
     try {
       // Axios request to send input to the backend
-      await axios.post("http://localhost:5000/scrape", {
+      await axios.post(`${BACKEND_URL}/scrape`, {
         number,
         carName,
         location,

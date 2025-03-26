@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import '../style/login.css'
 import { Link, useNavigate } from 'react-router-dom';
+import BACKEND_URL from '../api/config'
 import axios from 'axios'
 
 
@@ -13,7 +14,7 @@ function Login() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        axios.post("http://localhost:5000/login", { email, password })
+        axios.post(`${BACKEND_URL}/login`, { email, password })
             .then(result => {
                 if (result.data.role === "admin") {
                     Navigate("/adminpanel/createUser");

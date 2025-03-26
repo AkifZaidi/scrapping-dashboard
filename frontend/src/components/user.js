@@ -1,6 +1,8 @@
 import axios from 'axios'
 import "../style/user.css"
 import React, { useEffect, useState } from 'react'
+import BACKEND_URL from '../api/config'
+
 
 export default function User() {
     const [renderUser, setRenderUser] = useState([]);
@@ -9,7 +11,7 @@ export default function User() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.post("http://localhost:5000/user");
+                const response = await axios.post(`${BACKEND_URL}/user`); // Fetch user data
                 setRenderUser(response.data);  // Assuming response.data is an array of users
             } catch (error) {
                 console.error("Error fetching user data", error);

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import '../style/register.css'
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios'
+import BACKEND_URL from '../api/config'
 // import Login from '../components/login'
 
 
@@ -16,7 +17,7 @@ function CreateUser() {
         setName("")
         setEmail("")
         setPassword("")
-        axios.post("http://localhost:5000/register", { name, email, password })
+        axios.post(`${BACKEND_URL}/register`, { name, email, password })
             .then(result => {
                 console.log(result)
             })
