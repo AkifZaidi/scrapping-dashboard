@@ -11,14 +11,19 @@ const cron = require('node-cron');
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: ["http://localhost:3000", "https://scrapping-dashboard-llc7.vercel.app"],
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+}));
+
+app.options("*", cors());
+
 app.use(cookieParser());
 
 
-mongoose.connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-})
+mongoose.connect(process.env.MONGO_URI,)
 .then(() => console.log('Connected to MongoDB'))
 .catch((error) => console.error('Error connecting to MongoDB:', error));
 
@@ -27,7 +32,7 @@ app.get("/", (req, res) => {
     res.send("Welcome to the Office Dashboard API!");
 });
 
-app.post('/register', IsLoggedIn, async function (req, res) {
+app.post('/register',async function (req, res) {
     const { name, email, password } = req.body;
 
     let AuthenticateUser = await userModel.findOne({ email });
@@ -49,7 +54,8 @@ app.post('/register', IsLoggedIn, async function (req, res) {
         console.log(user);
 
         var token = jwt.sign({ email, userId: user._id }, 'dashBoard@');
-        res.cookie("token", token);
+        // res.cookie("token", token);
+        res.cookie("token", token, { httpOnly: true, secure: true, sameSite: "None" });
         return res.json(user);
     } catch (err) {
         return res.status(500).json({ error: "Error creating user" });
@@ -79,7 +85,8 @@ app.post("/login", async (req, res) => {
     const isMatch = await bcrypt.compare(password, loginUser.password);
     if (isMatch) {
         const token = jwt.sign({ email, userId: loginUser._id }, 'dashBoard@', { expiresIn: '1h' });
-        res.cookie("token", token);
+        // res.cookie("token", token);
+        res.cookie("token", token, { httpOnly: true, secure: true, sameSite: "None" });
         return res.send({ role: 'user' });
     } else {
         return res.status(403).send({ role: 'unauthorized', message: "Unauthorized access" });

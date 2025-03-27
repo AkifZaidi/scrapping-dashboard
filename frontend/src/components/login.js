@@ -10,11 +10,15 @@ function Login() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [accessUser, setAccessUser] = useState("")
+    const [loader, setLoader] = useState(false)
     let Navigate = useNavigate()
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        axios.post(`${BACKEND_URL}/login`, { email, password })
+        setTimeout(() => {
+            setLoader(true)
+        }, 50);
+        axios.post(`${BACKEND_URL}/login`, { email, password }, { withCredentials: true })
             .then(result => {
                 if (result.data.role === "admin") {
                     Navigate("/adminpanel/createUser");
@@ -26,11 +30,14 @@ function Login() {
                 }
                 localStorage.setItem('role', result.data.role);
 
+
             })
             .catch(err => {
                 console.log(err);
+                setLoader(false)
                 setAccessUser("Login failed. Please try again.");
             });
+
 
     }
     return (
@@ -53,7 +60,7 @@ function Login() {
                             name="password"
                             placeholder="Password"
                         />
-                        <button type='submit'>Login</button>
+                        <button type='submit'>{loader ? "Loading..." : "Login"}</button>
                         <p>{accessUser}</p>
                     </form>
                 </div>

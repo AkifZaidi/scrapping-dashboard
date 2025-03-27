@@ -17,7 +17,7 @@ function CreateUser() {
         setName("")
         setEmail("")
         setPassword("")
-        axios.post(`${BACKEND_URL}/register`, { name, email, password })
+        axios.post(`${BACKEND_URL}/register`, { name, email, password }, { withCredentials: true })
             .then(result => {
                 console.log(result)
             })
