@@ -13,7 +13,7 @@ const app = express();
 app.use(express.json());
 
 app.use(cors({
-    origin: ["https://scrapping-dashboard-llc7.vercel.app", "https://scrapping-dashboard-murex.vercel.app"], 
+    origin: ["https://scrapping-dashboard-llc7.vercel.app"], 
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],

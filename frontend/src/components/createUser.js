@@ -19,9 +19,9 @@ function CreateUser() {
         setPassword("")
         axios.post(`${BACKEND_URL}/register`, { name, email, password }, { withCredentials: true })
             .then(result => {
-                console.log(result)
+                console.log("successfully" ,result)
             })
-            .catch(err => console.log(err));
+            .catch(err => console.log("user not created" ,err));
 
     }
     return (
