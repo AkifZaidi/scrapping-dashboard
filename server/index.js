@@ -26,8 +26,8 @@ app.use(cookieParser());
 
 
 mongoose.connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+    // useNewUrlParser: true,
+    // useUnifiedTopology: true,
     serverSelectionTimeoutMS: 10000, // 10 seconds timeout
 })
 .then(() => console.log('Connected to MongoDB'))
@@ -41,6 +41,7 @@ app.get("/", (req, res) => {
 
 app.post('/register',async function (req, res) {
     const { name, email, password } = req.body;
+    console.log(req.body,"user created in console");
 
     let AuthenticateUser = await userModel.findOne({ email });
 
