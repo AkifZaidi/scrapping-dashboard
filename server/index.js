@@ -11,15 +11,16 @@ const cron = require('node-cron');
 
 const app = express();
 app.use(express.json());
+
 app.use(cors({
-    origin: ["http://localhost:3000", "https://scrapping-dashboard-llc7.vercel.app"],
+    origin: ["https://scrapping-dashboard-llc7.vercel.app", "https://scrapping-dashboard-murex.vercel.app"], 
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
 }));
 
 app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "https://scrapping-dashboard-llc7.vercel.app");
+    res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
     res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
     res.header("Access-Control-Allow-Credentials", "true");
@@ -27,6 +28,7 @@ app.use((req, res, next) => {
 });
 
 app.options("*", cors());
+
 
 app.use(cookieParser());
 
