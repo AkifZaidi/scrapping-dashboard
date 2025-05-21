@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import '../style/userpanel.css'
 import { Outlet, Route, Routes, useNavigate } from "react-router-dom";
+import logo_name from "../assets/logo_name.png";
 
 function Userpanel() {
   const [handlemenu, setHandleMenu] = useState("sidebar");
@@ -15,6 +16,12 @@ function Userpanel() {
       title: "User",
       path: "/adminpanel/user",
       category: "/adminpanel/user",
+      icon: <i class="ri-lock-password-fill"></i>,
+    },
+    {
+      title: "Scrapper",
+      path: "/adminpanel/scrapper",
+      category: "/adminpanel/scrapper",
       icon: <i class="ri-lock-password-fill"></i>,
     },
   ];
@@ -53,7 +60,9 @@ function Userpanel() {
     <>
       <div className={handlemenu ? "sidebar open" : "sidebar"}>
         <div className="logo-details">
-          <div className="logo_name"></div>
+          <div className="logo_name">
+            <img src={logo_name} alt="logo" className="logo_img" />
+          </div>
           <span onClick={menuBtnChange}>
             {handlemenu ? (
               <i class="ri-close-fill"></i>

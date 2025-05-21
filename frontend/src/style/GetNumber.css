@@ -1,0 +1,51 @@
+.getNumber-main {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    padding-top: 20px;
+    gap: 20px;
+}
+
+.getNumber {
+    margin-right: 40rem;
+    padding: 10px;
+    font-size: 1.2rem;
+    width: 10em;
+}
+
+.getNumber-container {
+    height: 100px;
+    width: 300px;
+    background-color: rgb(233, 232, 232);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.getNumber-container h2 {
+    font-size: 1.5rem;
+    color: black;
+}
+
+.getNumber-container h3 {
+    font-size: 1.2rem;
+    color: rgb(79, 77, 77);
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td,
+th {
+    background-color: rgb(247, 243, 243);
+    padding: 20px;
+    color: black;
+    text-align: left;
+    border: 1px solid rgb(233, 232, 232);
+    /* no border */
+}
+
+/* .table-header {
+    font-weight: bold;
+  } */

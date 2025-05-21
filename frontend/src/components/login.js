@@ -23,7 +23,7 @@ function Login() {
                 if (result.data.role === "admin") {
                     Navigate("/adminpanel/createUser");
                 } else if (result.data.role === "user") {
-                    Navigate("/userpanel/scrapper");
+                    Navigate("/userpanel/CarManager/getNumber");
                 } else {
                     setAccessUser("Unauthorized access");
                     Navigate("/")

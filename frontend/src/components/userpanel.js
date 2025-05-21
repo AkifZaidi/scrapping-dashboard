@@ -1,20 +1,19 @@
 import React, { useState } from "react";
-import '../style/adminpanel.css'
+import '../style/userpanel.css'
 import { Outlet, Route, Routes, useNavigate } from "react-router-dom";
-import Scrapper from "./scrapper";
-import ScrapperList from "./scrapperList";
+import logo_name from "../assets/logo_name.png";
 
 function Userpanel() {
   const [handlemenu, setHandleMenu] = useState("sidebar");
   const dashBoard = [
     {
-      title: "Scrapper",
-      path: "/userpanel/scrapper",
-      category: "/userpanel/scrapper",
+      title: "Get Number",
+      path: "/userpanel/CarManager/GetNumber",
+      category: "/userpanel/getNumber",
       icon: <i className="ri-flask-fill"></i>,
     },
     {
-      title: "scrapper List",
+      title: "My Number",
       path: "/userpanel/scrapperList",
       category: "/userpanel/scrapperList",
       icon: <i className="ri-lock-password-fill"></i>,
@@ -54,12 +53,14 @@ function Userpanel() {
     <>
       <div className={handlemenu ? "sidebar open" : "sidebar"}>
         <div className="logo-details">
-          <div className="logo_name"></div>
+          <div className="logo_name">
+            <img src={logo_name} alt="logo" className="logo_img" />
+          </div>
           <span onClick={menuBtnChange}>
             {handlemenu ? (
-              <i class="ri-close-fill"></i>
+              <i className="ri-close-fill"></i>
             ) : (
-              <i class="ri-menu-3-line"></i>
+              <i className="ri-menu-3-line"></i>
             )}
           </span>
         </div>
@@ -77,7 +78,7 @@ function Userpanel() {
           ))}
           <li className="profile" onClick={logout}>
             <div className="profile-details">
-              <i class="ri-logout-box-line"></i>
+              <i className="ri-logout-box-line"></i>
               <div className="name_job">
                 <div className="name">Logout</div>
               </div>

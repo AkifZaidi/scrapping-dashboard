@@ -26,12 +26,12 @@ app.use(cookieParser());
 
 
 mongoose.connect(process.env.MONGO_URI, {
-    // useNewUrlParser: true,
-    // useUnifiedTopology: true,
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
     serverSelectionTimeoutMS: 10000, // 10 seconds timeout
 })
-.then(() => console.log('Connected to MongoDB'))
-.catch((error) => console.error('Error connecting to MongoDB:', error));
+    .then(() => console.log('Connected to MongoDB'))
+    .catch((error) => console.error('Error connecting to MongoDB:', error));
 
 
 // Home route
@@ -39,9 +39,9 @@ app.get("/", (req, res) => {
     res.send("Welcome to the Office Dashboard API!");
 });
 
-app.post('/register',async function (req, res) {
+app.post('/register', async function (req, res) {
     const { name, email, password } = req.body;
-    console.log(req.body,"user created in console");
+    console.log(req.body, "user created in console");
 
     let AuthenticateUser = await userModel.findOne({ email });
 
@@ -74,6 +74,20 @@ app.post("/user", async (req, res) => {
     let User = await userModel.find();
     console.log(User);
     res.json(User);
+});
+
+app.get("/user/profile", IsLoggedIn, async (req, res) => {
+    try {
+        const userId = req.user.userId; // Extract userId from the JWT payload
+        const user = await userModel.findById(userId).select("-password"); // Exclude password field
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        res.json(user);
+    } catch (error) {
+        console.error("Error fetching user profile:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
 });
 
 app.post("/login", async (req, res) => {
@@ -139,6 +153,27 @@ app.get('/cars', async (req, res) => {
     }
 });
 
+app.post('/upload', async (req, res) => {
+    const data = req.body;
+
+    if (!Array.isArray(data)) {
+        return res.status(400).json({ message: "Invalid data format" });
+    }
+
+    try {
+        // Save each car in MongoDB
+        const savedCars = await carModel.insertMany(data);
+
+        res.status(200).json({
+            message: "Data uploaded and saved successfully.",
+            savedCount: savedCars.length,
+        });
+    } catch (error) {
+        console.error("Error saving cars:", error);
+        res.status(500).json({ message: "Failed to save car data." });
+    }
+});
+
 cron.schedule('0 * * * *', async () => {
     const twelveHoursAgo = new Date(Date.now() - 12 * 60 * 60 * 1000);
     try {
@@ -150,6 +185,7 @@ cron.schedule('0 * * * *', async () => {
 });
 
 async function IsLoggedIn(req, res, next) {
+    console.log("Cookies:", req.cookies); // Log cookies
     if (!req.cookies.token) {
         return res.send("Something Went Wrong: No token provided");
     }

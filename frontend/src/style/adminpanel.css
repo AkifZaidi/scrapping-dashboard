@@ -28,49 +28,43 @@ body {
     width: 250px;
 }
 
+.sidebar .logo_name {
+    display: none;
+    opacity: 0;
+    transition: all 0.5s ease;
+}
+
 .sidebar .logo-details {
     height: 60px;
+    width: 100%;
     display: flex;
     align-items: center;
     position: relative;
 }
 
-.sidebar .logo-details .icon {
-    opacity: 0;
-    transition: all 0.5s ease;
-}
-
-.sidebar .logo-details .logo_name {
-    color: royalblue;
-    font-size: 20px;
-    font-weight: 600;
-    opacity: 0;
-    transition: all 0.5s ease;
-}
-
-.sidebar.open .logo-details .icon,
-.sidebar.open .logo-details .logo_name {
+.logo_img {
+    width: 13vw;
+    height: 80px;
+    display: block;
     opacity: 1;
-}
-
-.sidebar .logo-details #btn {
-    position: absolute;
-    top: 50%;
-    right: 0;
-    transform: translateY(-50%);
-    font-size: 22px;
-    transition: all 0.4s ease;
-    font-size: 23px;
-    text-align: center;
-    cursor: pointer;
     transition: all 0.5s ease;
 }
 
-.sidebar.open .logo-details #btn {
-    text-align: right;
+.sidebar.open .logo_name {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    min-width: 10vw;
+    opacity: 1;
+    transition: all 0.5s ease;
 }
 
-.sidebar i {
+.sidebar .logo-details i {
+    position: absolute;
+    top: -0em;
+    left: -1em;
     color: royalblue;
     height: 60px;
     min-width: 50px;
@@ -265,7 +259,8 @@ body {
     overflow: hidden;
     cursor: pointer;
 }
-.sidebar li.profile:hover{
+
+.sidebar li.profile:hover {
     background: rgb(19, 48, 134);
 }
 
@@ -278,13 +273,14 @@ body {
     align-items: center;
     flex-wrap: nowrap;
 }
+
 .sidebar li .profile-details i {
     color: #e4e9f7;
     font-size: 1.5rem;
 }
 
 
-.sidebar.open .nav-list .name{
+.sidebar.open .nav-list .name {
     display: block;
 }
 
@@ -326,7 +322,7 @@ body {
     margin: 18px;
 }
 
-.logo-details span .ri-menu-3-line{
+.logo-details span .ri-menu-3-line {
     margin-left: 10px;
 }
 

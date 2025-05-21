@@ -7,8 +7,11 @@ import Userpanel from './components/userpanel';
 import CreateUser from './components/createUser';
 import User from './components/user';
 import Scrapper from './components/scrapper';
+import ProtectedWrapper from "./components/ProtectedWrapper"
+import CarManager from './components/CarManager';
 import ScrapperList from './components/scrapperList';
-import ProtectedWrapper from "./components/ProtectedWrapper" 
+import GetNumber from './components/GetNumber';
+// import GetNumber from './components/GetNumber';
 
 function App() {
   return (
@@ -20,10 +23,12 @@ function App() {
           <Route path='/adminpanel/*' element={<ProtectedWrapper><Adminpanel /></ProtectedWrapper>} >
             <Route path='createUser' element={<CreateUser />} />
             <Route path='user' element={<User />} />
+            <Route path='scrapper' element={<Scrapper />} />
           </Route>
           <Route path='/userpanel' element={<Userpanel />} >
-            <Route path='scrapper' element={<Scrapper />} />
-            <Route path='scrapperList' element={<ScrapperList />} />
+            <Route path='CarManager/GetNumber' element={<GetNumber/>} />
+            <Route path='scrapperList' element={<ScrapperList/>} />
+            {/* <Route path='GetNumber' element={<GetNumber/>} /> */}
           </Route>
         </Routes>
       </BrowserRouter>
