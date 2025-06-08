@@ -18,11 +18,11 @@ table {
 }
 
 .car-heading {
-  font-size: 2rem;
+  font-size: 3rem;
   font-weight: bold;
   text-align: center;
   /* margin-bottom: 20px; */
-  margin-top: 30px;
+  margin-top: -20px;
   transition: color 0.5s ease-in-out;
 }
 
@@ -47,20 +47,41 @@ table {
   /* Prevent text from wrapping */
 }
 
-th,
-td {
-  padding: 12px;
-  border: 2px solid #333;
+.cars-table {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 10px;
+  background-color: rgb(233, 232, 232);
+  border-radius: 10px;
+  margin-top: 2rem;
+}
+
+.cars-table table {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+
+}
+
+.cars-table th,
+.cars-table td {
+  border: 1px solid #ddd;
+}
+
+.cars-table th {
+  background-color: rgb(66, 90, 226);
+  color: white;
   text-align: center;
-  background-color: #f4f4f4;
-  transition: background-color 0.3s ease;
+  padding: 10px;
 }
 
-th {
-  background-color: #007bff;
-  color: #fff;
-}
-
-tr:hover td {
-  background-color: #e9ecef;
+.cars-table td {
+  text-align: center;
+  padding: 8px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  background-color: rgb(245, 242, 242);
 }

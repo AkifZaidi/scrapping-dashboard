@@ -91,7 +91,6 @@ const Scrapper = () => {
       // Remove duplicates based on all four fields
       const uniqueData = removeDuplicates(jsonData);
       setUniqueCars(uniqueData);
-      console.log("Filtered Unique Data: ", uniqueData);
 
       // You can send this data to the backend if needed
       axios.post(`${BACKEND_URL}/upload`, uniqueData)
@@ -166,12 +165,14 @@ const Scrapper = () => {
               onChange={(e) => setLocation(e.target.value)}
               required
               disabled={fileUploaded}
-            />
+              />
+            <br />
             <input
               type="file"
               value={emptyFile}
               accept=".csv, .xlsx"
               onChange={(e) => handleFileChange(e)}
+              required
             />
             <button type="submit" disabled={fileUploaded}>Submit</button>
           </form>

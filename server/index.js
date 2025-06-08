@@ -14,6 +14,7 @@ app.use(express.json());
 
 app.use(cors({
     origin: ["https://scrapping-dashboard-llc7.vercel.app"], 
+    // origin: ["http://localhost:3000"],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
@@ -26,8 +27,8 @@ app.use(cookieParser());
 
 
 mongoose.connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+    // useNewUrlParser: true,
+    // useUnifiedTopology: true,
     serverSelectionTimeoutMS: 10000, // 10 seconds timeout
 })
     .then(() => console.log('Connected to MongoDB'))
@@ -134,6 +135,7 @@ app.post('/scrape', async (req, res) => {
 app.get('/cars', async (req, res) => {
     try {
         const cars = await carModel.find();
+        console.log("Cars:", cars);
         const uniqueCars = [];
         const duplicateCars = [];
         const numberMap = new Map();
@@ -153,6 +155,20 @@ app.get('/cars', async (req, res) => {
     }
 });
 
+app.get('/selectedCars', async (req, res) => {
+    try {
+        const selectedCars = JSON.parse(req.query.selectedCars || '[]');
+        console.log("Selected Cars:", selectedCars);
+        
+        const cars = await carModel.find({ _id: { $in: selectedCars } });
+        console.log("Selected Cars:", cars);
+        
+        res.json({ selectedCarsData: cars });
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching cars data' });
+    }
+})
+
 app.post('/upload', async (req, res) => {
     const data = req.body;
 
@@ -161,12 +177,19 @@ app.post('/upload', async (req, res) => {
     }
 
     try {
-        // Save each car in MongoDB
-        const savedCars = await carModel.insertMany(data);
+        const operations = data.map(car => ({
+            updateOne: {
+                filter: { number: car.number }, // Match based on car number
+                update: { $set: car },          // Update existing or insert new
+                upsert: true                    // Insert if not found
+            }
+        }));
+
+        await carModel.bulkWrite(operations);
 
         res.status(200).json({
-            message: "Data uploaded and saved successfully.",
-            savedCount: savedCars.length,
+            message: "Cars inserted/updated successfully.",
+            savedCount: data.length,
         });
     } catch (error) {
         console.error("Error saving cars:", error);
@@ -174,10 +197,31 @@ app.post('/upload', async (req, res) => {
     }
 });
 
+app.post('/delete', async (req, res) => {
+    try {
+        const { id } = req.body;
+        if (!id) {
+            return res.status(400).json({ message: "ID is required" });
+        }
+
+        const result = await userModel.findByIdAndDelete(id);
+        if (!result) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        res.status(200).json({ message: "User deleted successfully" });
+    } catch (error) {
+        console.error("Delete error:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+});
+
 cron.schedule('0 * * * *', async () => {
     const twelveHoursAgo = new Date(Date.now() - 12 * 60 * 60 * 1000);
     try {
         await carModel.deleteMany({ createdAt: { $lte: twelveHoursAgo } });
+        await localStorage.removeItem("cars");
+        await localStorage.removeItem("selectedCars");
         console.log('Deleted cars older than 12 hours');
     } catch (error) {
         console.error('Error deleting old car data:', error);
